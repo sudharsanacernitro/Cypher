@@ -1,0 +1,168 @@
+<html>
+    <head>
+        <style>
+                body{
+                        background-color: aqua;
+                        font-family: "Pacifico", cursive;
+                        font-weight: 700;
+                        font-size: larger;
+                        font-style: normal;
+                        color:grey;
+                    }
+                    #body{
+                        width:100%;
+                        height:100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                    }
+
+                    #main{
+                        width:70%;
+                        height:900px;
+                        background-color: rgb(21, 21, 22);
+                        border-radius: 20px;
+                        overflow-y: scroll;
+
+                    }
+                    #follow{
+                        width:25%;
+                        height:900px;
+                        background-color: rgb(21, 21, 22);
+                        border-radius: 20px;
+                    }
+                    #details{
+                        margin-top: 5%;
+                        margin-left: 5%;
+                        display: flex;
+                    }
+                    #profile_img{
+                        width:200px;
+                        height: 200px;
+                        border-radius:100px;
+                    }
+                    #followers{
+                        display: flex;
+                        width:70%;
+                        justify-content: space-around;
+                    }
+                    #profile{
+                        display: flex;
+                        flex-direction: column;
+
+                    }
+                    #followers_det p{
+                        font-size: 5.73em;
+                        font-weight: 700;
+                        color:white;
+                        margin: 0%;
+                    }
+
+                    #make_post,#follow_btn{
+                        width:200px;
+                        height:50px;
+                        border-radius: 20px;
+                        font-size: 5.43em;
+                        background-color: grey;
+                        font-family: "Pacifico", cursive;
+                        font-weight: 900;
+                        font-size: larger;
+                        font-style: normal;
+                        margin-left: 50px;
+                    }
+                     #posted{
+                        display: flex;
+                        flex-wrap: wrap;
+                     }
+                    #posted_image{
+                        width:310px;
+                        height:300px;
+                        border-right:4px solid aqua;
+                        border-radius: 10px;
+                    }
+                    
+                    .det_child{
+                        cursor:pointer;
+                    }
+        </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div id="body">
+            <div id="main">
+              <div id="details">
+                <div id="profile">
+                    <img src="" id="profile_img">
+                    <h1 id="username">@__G.O.A.T__</h1>
+                </div> 
+                <div id="followers">
+                    <div id="followers_det" class="det_child">
+                        <p id="post_num">007</p>
+                        <h1>post</h1>
+                    </div>
+                    <div id="followers_det" class="det_child">
+                        <p id="followers_num">174</p>
+                        <h1>followers</h1>
+                    </div>
+                    <div id="followers_det" class="det_child">
+                        <p id="following_num">207</p>
+                        <h1>following</h1>
+                    </div>
+                </div>
+              </div>
+              <form action="/follow_request" method="post" >
+                
+              <input type="submit" value="follow">
+              </form>
+              
+              <hr>
+              <div id="posted">
+               
+              </div>
+            </div>
+            <div id="follow">
+                
+            </div>
+        </div>
+        <script>
+
+var encodedData = "<%= JSON.stringify(result) %>";
+var decodedData = decodeHtmlEntities(encodedData);
+var dataArray = JSON.parse(decodedData);
+console.log(dataArray);
+
+
+var encodedData1 = "<%= JSON.stringify(result1) %>";
+var decodedData1 = decodeHtmlEntities(encodedData1);
+var dataArray1 = JSON.parse(decodedData1);
+console.log(dataArray1);
+
+
+function decodeHtmlEntities(encodedString) {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = encodedString;
+    return textarea.value;
+}
+
+
+document.getElementById('username').innerHTML="@"+dataArray.name;
+document.getElementById('post_num').innerHTML=dataArray1.post.length;
+document.getElementById('followers_num').innerHTML=dataArray1.followers.length;
+document.getElementById('following_num').innerHTML=dataArray1.following.length;
+document.getElementById('profile_img').src=dataArray.profile;
+
+
+
+var post_count=dataArray1.post;
+var container=document.getElementById('posted');
+for(let i=0;i<post_count.length;i++)
+{
+    var img=document.createElement('img');
+    img.src="/post/"+post_count[i]
+    img.setAttribute('id','posted_image');
+    container.appendChild(img);
+}
+        </script>
+    </body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Using querySelector</title>
+<style>
+    #body{
+        display:flex;
+        width:100%;
+        height:1000px;
+        overflow: hidden;
+    }
+    .child{
+        height:100%;
+        width:25%;
+        background-color: rgb(21, 21, 22);
+        margin-left:0.4%;
+        border:1px solid gray;
+        border-radius: 15px;
+    }
+    #search{
+        margin-left: 0%;
+    }
+    #main{
+        width:50%;
+        overflow-y: scroll;
+        border-top-right-radius: 0%;
+
+    }
+    #friend{
+        margin-left: 0%;
+        border-top-left-radius: 0%;
+    }
+    #search_nav{
+        width:95%;
+        height:40px;
+        border-radius: 20px;
+        margin-top: 5%;
+    }
+    body{
+        overflow: hidden;
+        background-color: aqua;
+        color:grey
+    }
+    #title{
+        color: aqua;
+        text-align: center;
+        font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+    }
+    
+    #post{
+        margin-top: 10%;
+        margin-left: 5%;
+        overflow: scroll;
+    }
+    #profile_img{
+        width:50px;
+        height: 50px;
+        border-radius: 20px;
+    }
+
+    #profile_name{
+        margin-left: 3%;
+    }
+    #det{
+        display: flex;
+    }
+    #mainpost{
+        display: flex;
+
+    }
+   #mainpost img{
+    width:90%;
+    height: 460px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+   }
+   #icons{
+    height: 460px;
+    width:7%;
+    background-color: white;
+    border-top-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-left: 2px solid black;
+   }
+   .fas{
+    color:black;
+   }
+   .post1{
+    padding-bottom: 30px;
+    border-bottom:2px solid aqua;
+    margin-top: 30px;
+    margin-bottom: 100px;
+
+   }
+   #navbar{
+    position:fixed;
+    display: flex;
+    flex-direction: column;
+    top:40%;
+    left:0%;
+    background-color: white;
+    height:250px;
+    width:50px;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 20px;
+   }
+   button{
+    cursor: pointer;
+    border:none;
+    background-color: white;
+    padding: none;
+   }
+
+
+   /* Modal container */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  left:27%;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 35%;
+  height: 60%;
+  position:fixed;
+}
+
+.modal-content input{
+  position: absolute;
+  bottom: 0%;
+  width:80%;
+  height:6%;
+  border-radius: 15px;
+}
+
+.modal-content button{
+  position: absolute;
+  bottom: 0%;
+  right:3%;
+  border:2px solid black;
+  width:40px;
+  border-radius: 10px;
+}
+/* Close button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-sazXOsVvxQVvGMpIVXJOoAiu3vZkdlxmLFXM+YoJqkiRRdyKc3r7vO+IBqQyyIlX" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="body">
+    <div id="search" class="child"><input id="search_nav" placeholder=" Search...">
+        <ul id="list"></ul>
+    </div>
+    <div id="main" class="child"><h1 id="title">CYPHER</h1>
+    <hr>
+       <div id="post">
+       
+
+
+     
+   </div>
+
+
+ </div>
+    <div id="friend" class="child"><h1 id="title">Notifications</h1>
+        <hr></div>
+</div>
+
+
+
+<div id="navbar">
+    <i class="fas fa-home" style="font-size: 1.73em;"></i>
+   <a href="/messages"> <i class="fas fa-comment"  style="font-size: 1.73em;"></i></a>
+   <a href="/profile/me"><i class="fas fa-user"  style="font-size: 1.73em;"></i></a> 
+
+</div>
+
+
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <div class="modal-content">
+    <input id="comment_input">
+    <button onclick="call();">send</button>
+  </div>
+</div>
+
+<script>
+let last_user;
+var encodedData = "<%= JSON.stringify(result1) %>";
+var decodedData = decodeHtmlEntities(encodedData);
+var dataArray = JSON.parse(decodedData);
+console.log(dataArray);
+
+function decodeHtmlEntities(encodedString) {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = encodedString;
+    return textarea.value;
+}
+
+var main = document.getElementById('post');
+
+for (let i = 0; i < dataArray.length; i++) {
+    let postHtml = `
+        <div class="post1">
+            <div id="det">
+                <img src="${dataArray[i].profile_img}" alt="profile" id="profile_img"/>
+                <h2 id="profile_name">${dataArray[i].name}</h2>
+            </div>
+            <div id="mainpost">
+                <img src="/post/${dataArray[i].post_name}" >
+                <div id="icons">
+                    <button id="like_${dataArray[i].post_name}"><i class="fas fa-heart" style="font-size: 1.73em;"></i><p>${dataArray[i].likes}</p></button>
+                    <button id="comment_${dataArray[i].post_name}"><i class="fas fa-comment" style="font-size: 1.73em;"></i></button>
+                    <i class="fas fa-ellipsis-v" style="font-size: 1.73em;"></i>
+                </div>
+            </div>
+        </div>
+    `;
+    main.insertAdjacentHTML('beforeend', postHtml);
+
+    let likeButton = document.getElementById(`like_${dataArray[i].post_name}`);
+    likeButton.addEventListener('click', function() {
+        this.querySelector('i').style.color = 'red';
+        let currentLikeCount = parseInt(this.querySelector('p').innerHTML);
+        this.querySelector('p').textContent = currentLikeCount + 1;
+        fetch('/like', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ img_name: dataArray[i].post_name })
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('There was a problem with the fetch operation:', error));
+    });
+
+    let commentButton = document.getElementById(`comment_${dataArray[i].post_name}`);
+    commentButton.addEventListener('click', function() {
+        console.log("comment clicked");
+        let modal = document.getElementById("myModal");
+        let span = document.getElementsByClassName("close")[0];
+        let model_container=document.getElementsByClassName('modal-content')[0];
+
+        var h4Tags = document.querySelectorAll('#model-content h4');
+
+        // Loop through each h4 tag and remove it
+        h4Tags.forEach(function(h4) {
+            h4.parentNode.removeChild(h4);
+        });
+
+        last_user = dataArray[i].post_name;
+        var cmt=dataArray[i].comments;
+        for(let j=0;j<cmt.length;j++)
+        {
+            console.log(cmt[j]);
+            var div1=document.createElement('div');
+            var username=document.createElement('h4');
+            username.textContent=cmt[j].name+"   :   ";
+            var cmt_content=document.createElement('h4');
+            cmt_content.textContent=cmt[j].data;
+
+            div1.appendChild(username);
+            div1.appendChild(cmt_content);
+            div1.style.display='flex'
+            model_container.appendChild(div1);
+
+        }
+        modal.style.display = "block";
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    });
+}
+
+
+  
+  
+  
+  document.getElementById('search_nav').addEventListener('input', function() {
+    const searchQuery = this.value.toLowerCase();
+    const listItems = document.querySelectorAll('#list li');
+  
+    listItems.forEach(function(item) {
+      const text = item.textContent.toLowerCase(); 
+      if (text.includes(searchQuery)) {
+        item.style.display = 'block'; 
+      } else {
+        item.style.display = 'none'; 
+      }
+      if(searchQuery=="")
+      {
+        item.style.display = 'none';
+      }
+    });
+  });
+
+
+
+ var listContainer=document.getElementById('list');
+  var encodedData1 = "<%= JSON.stringify(result) %>";
+var decodedData1 = decodeHtmlEntities(encodedData1);
+var dataArray1 = JSON.parse(decodedData1);
+console.log(dataArray1.length);
+data=[];
+
+var uniquedata = dataArray1;
+
+for (let i = 0; i < uniquedata.length; i++) {
+  // Create list item
+  var li = document.createElement('li');
+  
+  // Set onclick attribute
+  
+  // Create icon element
+  var icon = document.createElement('i');
+  icon.classList.add('fas', 'fa-arrow-up', 'slant-arrow');
+  
+  // Create text node for item text
+  const textNode = document.createTextNode(`${uniquedata[i]['name']}`);
+  let anchor=document.createElement('a');
+  anchor.href='/profile/'+uniquedata[i]['email'];
+  anchor.textContent=uniquedata[i]['name'];
+  // Append icon and text to list item
+  li.appendChild(icon);
+  li.appendChild(anchor);
+  var btn=document.createElement('button');
+  btn.textContent="follow";
+  li.appendChild(btn);
+  btn.addEventListener('click', function() {
+      //window.location.href='/common/'+uniquedata[i]._id;
+
+fetch('/common', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ key: uniquedata[i]._id,name:uniquedata[i]['name'] })
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('There was a problem with the fetch operation:', error));
+
+
+  });
+  // Append list item to list container
+  console.log(uniquedata[i]._id);
+
+  listContainer.appendChild(li);
+}
+
+function call()
+{
+  let comment_input=document.getElementById('comment_input');
+  let data=comment_input.value;
+  console.log(last_user+"-> clicked");
+  fetch('/comment', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ data:data,post:last_user})
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('There was a problem with the fetch operation:', error));
+}
+
+
+
+</script>
+</body>
+</html>
+
+
+

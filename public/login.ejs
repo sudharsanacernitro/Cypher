@@ -1,0 +1,172 @@
+<html>
+<head>
+  <title>LOG-IN</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"> 
+<style>
+.form-container {
+  margin: 30% auto;
+  display: block;
+  width:500px;
+ 
+}
+
+body{
+  margin: 0 auto;
+  font-family: Arial;
+  background-color: rgb(1, 25, 31);  backdrop-filter: blur(4px);
+    color: white;
+    background-size: 60%;
+}
+
+.form-container input{
+  margin-bottom:10px;
+}
+img{
+  width: 200px;
+  height:200px;
+  border-radius: 130px;
+  size: 40%;
+}
+input{background-color: white;}
+#fileInput{display: none;}
+
+.overlay-text {
+    position: relative;
+    top: 2%;
+    left: 49%;
+    transform: translate(-94%, -100%);
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    visibility: hidden; /* Initially hidden */
+    transition: visibility 0.3s ease; /* Smooth transition */
+    width:187px;
+    height: 187px;
+    border-radius: 130px;
+    
+    text-align: center;
+}
+
+#img-container:hover .overlay-text {
+    visibility: visible; /* Show text when image is hovered */
+}
+h5{margin-top: 85px;}
+label{color: rgb(91, 175, 91);
+margin-right: 160px;
+}
+
+.container{
+  border:2px solid dimgray;
+  width:400px;
+  margin-top: 20px;
+  margin-left: 700px;
+  background-color: rgb(1, 25, 31);
+  border-radius: 20px;
+}
+
+.input-line {
+  position: relative;
+  width: 300px; /* Adjust width as needed */
+  margin: 50px auto; /* Adjust margin as needed */
+}
+
+.input-line input[type="text"] {
+  border: none;
+  border-bottom: 2px solid #ccc; /* Adjust line color and thickness as needed */
+  width: 100%;
+  padding: 5px 0;
+  font-size: 16px; /* Adjust font size as needed */
+  outline: none; /* Remove focus outline */
+}
+
+.input-line input[type="text"]:focus {
+  border-bottom: 2px solid dimgrey; /* Adjust line color on focus as needed */
+}
+
+#name{background-color: rgb(1, 25, 31);
+color: whitesmoke;}
+
+
+#submit{padding:10px;
+border-radius: 10px;
+background-color: black;
+color:white;
+cursor:pointer;}
+#submit:hover{
+  transform: translateY(-5px);
+}
+#profile{height:159px}
+@media screen and (max-width:600px)
+{
+  .container{
+    width: 70%;
+    height: 100%;
+    min-height: 600px;
+    min-width: 400px;
+    margin-top: 55px;
+    margin-left: 40px;
+    position: fixed;
+    top:0;
+    left:0;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    
+}
+
+.overlay-text {
+  display: none;
+}
+#profile{margin-left: 25%;}
+}
+</style>
+
+</head>
+<body>
+<div  class=" container ">
+  <h2><center>LOG-IN PAGE</center></h2><br><br><br>
+  <center>
+   
+    
+    <div class="input-line">
+      <form  action="/login_backend" method="post" >
+        <br><br>
+      <label>enter your name:</label>
+      <input type="text" id="name" name="name" class="name" ><br><br><br>
+
+      <label>enter your email:</label>
+      <input type="text" id="name" name="email" class="email"  ><br><br><br>
+      
+      <label>enter password:</label>
+      <input type="text" id="name" name="password" class="name" ><br><br><br>
+      
+
+    <center><input type="submit" name="RUN"   id="submit" value="continue" ></center>
+  </form>
+  <br>
+<p>don't have an account? <a href="/sign_up">sign_up</a></p>
+</div>
+<script>
+function showInput() {
+        const x=document.querySelector(".name").value;          
+        const y=document.querySelector(".email").value;      
+// Check browser support
+if (typeof(Storage) !== "undefined") {
+  // Store
+  localStorage.setItem("chat-name", x);
+  localStorage.setItem("chat-email",y);
+  }
+  }
+
+
+ 
+  </script>
+  
+</div>
+</center>
+</body>
+</html>
+

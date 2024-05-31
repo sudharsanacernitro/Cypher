@@ -1,0 +1,286 @@
+<html>
+    <head>
+        <style>
+                body{
+                        background-color: aqua;
+                        font-family: "Pacifico", cursive;
+                        font-weight: 700;
+                        font-size: larger;
+                        font-style: normal;
+                        color:grey;
+                    }
+                    #body{
+                        width:100%;
+                        height:100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                    }
+
+                    #main{
+                        width:70%;
+                        height:900px;
+                        background-color: rgb(21, 21, 22);
+                        border-radius: 20px;
+                        overflow-y: scroll;
+
+                    }
+                    #follow{
+                        width:25%;
+                        height:900px;
+                        background-color: rgb(21, 21, 22);
+                        border-radius: 20px;
+                    }
+                    #details{
+                        margin-top: 5%;
+                        margin-left: 5%;
+                        display: flex;
+                    }
+                    #profile_img{
+                        width:200px;
+                        height: 200px;
+                        border-radius:100px;
+                    }
+                    #followers{
+                        display: flex;
+                        width:70%;
+                        justify-content: space-around;
+                    }
+                    #profile{
+                        display: flex;
+                        flex-direction: column;
+
+                    }
+                   .det_child p{
+                        font-size: 5.73em;
+                        font-weight: 700;
+                        color:white;
+                        margin: 0%;
+                    }
+
+                    #make_post,#follow_btn{
+                        width:200px;
+                        height:50px;
+                        border-radius: 20px;
+                        font-size: 5.43em;
+                        background-color: grey;
+                        font-family: "Pacifico", cursive;
+                        font-weight: 900;
+                        font-size: larger;
+                        font-style: normal;
+                        margin-left: 50px;
+                    }
+                     #posted{
+                        display: flex;
+                        flex-wrap: wrap;
+                     }
+                    #posted_image{
+                        width:310px;
+                        height:300px;
+                        border-right:4px solid aqua;
+                        border-radius: 10px;
+                        cursor: pointer;
+                    }
+                    
+                    .det_child{
+                        cursor:pointer;
+                    }
+
+
+
+   /* Modal container */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  left:27%;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 35%;
+  height: 60%;
+  position:fixed;
+}
+
+.modal-content input{
+  position: absolute;
+  bottom: 0%;
+  width:80%;
+  height:6%;
+  border-radius: 15px;
+}
+
+.modal-content button{
+  position: absolute;
+  bottom: 0%;
+  right:3%;
+  border:2px solid black;
+  width:40px;
+  border-radius: 10px;
+}
+/* Close button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+        </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet"> 
+    </head>
+
+    <body>
+        <div id="body">
+            <div id="main">
+              <div id="details">
+                <div id="profile">
+                    <img src="moon.jpg" id="profile_img">
+                    <h1 id="username">@__G.O.A.T__</h1>
+                </div> 
+                <div id="followers">
+                    <div id="post_count" class="det_child">
+                        <p id="post_num">007</p>
+                        <h1>post</h1>
+                    </div>
+                    <div id="followers_count" class="det_child" onclick="show('followers')">
+                        <p id="followers_num">174</p>
+                        <h1>followers</h1>
+                    </div>
+                    <div id="following_count" class="det_child" onclick="show('following')">
+                        <p id="following_num">207</p>
+                        <h1>following</h1>
+                    </div>
+                </div>
+              </div>
+              <% if (you) { %>
+              <form action="/post" method="post" enctype="multipart/form-data">
+                <button id="make_post"><label for="fileInput">choose- IMG</label> </button>
+              <input type="file" name="image" id="fileInput" accept="image/*" >
+              <input type="submit" value="upload">
+              </form>
+              <% } %>
+              <hr>
+              <div id="posted">
+               
+              </div>
+            </div>
+            <div id="follow">
+                
+            </div>
+        </div>
+
+
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <div class="modal-content">
+             
+            </div>
+          </div>
+        
+        <script>
+
+var encodedData = "<%= JSON.stringify(result) %>";
+var decodedData = decodeHtmlEntities(encodedData);
+var dataArray = JSON.parse(decodedData);
+console.log(dataArray);
+
+
+var encodedData1 = "<%= JSON.stringify(result1) %>";
+var decodedData1 = decodeHtmlEntities(encodedData1);
+var dataArray1 = JSON.parse(decodedData1);
+console.log(dataArray1);
+
+
+var encodedData2 = "<%= JSON.stringify(result2) %>";
+var decodedData2 = decodeHtmlEntities(encodedData2);
+var dataArray2 = JSON.parse(decodedData2);
+console.log(dataArray2); 
+
+function decodeHtmlEntities(encodedString) {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = encodedString;
+    return textarea.value;
+}
+
+
+document.getElementById('username').innerHTML="@"+dataArray.name;
+document.getElementById('post_num').innerHTML=dataArray1.post.length;
+document.getElementById('followers_num').innerHTML=dataArray1.followers.length;
+document.getElementById('following_num').innerHTML=dataArray1.following.length;
+document.getElementById('profile_img').src=dataArray.profile;
+
+var model=document.getElementById('myModal');
+let span = document.getElementsByClassName("close")[0];
+span.addEventListener('click',function(){
+    model.style.display="none";
+});
+var post_count=dataArray2;
+var container=document.getElementById('posted');
+for(let i=0;i<post_count.length;i++)
+{
+    var img=document.createElement('img');
+    img.src="/post/"+post_count[i].post_name;
+    img.setAttribute('id','posted_image');
+    container.appendChild(img);
+
+    img.addEventListener('click',function(){
+        console.log("/post/"+post_count[i]+" ->  clicked");
+        model.style.display="block";
+    });
+    console.log(post_count[i].post_name);
+}
+
+function show(a)
+{
+    var cont=document.getElementById('follow');
+    cont.innerHTML="";
+    var followers=dataArray1.followers;
+    var following=dataArray1.following;
+    if(a=='followers')
+    {
+         for (let i=0;i<followers.length;i++)
+         {
+            var h2=document.createElement('h2');
+            h2.textContent='=>'+followers[i];
+            cont.appendChild(h2);
+         }
+    }
+    else{
+        for (let i=0;i<following.length;i++)
+         {
+            var h2=document.createElement('h2');
+            h2.textContent='=>'+following[i];
+            cont.appendChild(h2);
+         }
+    }
+}
+
+
+
+function disp(a)
+{
+     
+}
+       </script>
+    </body>
+</html>
