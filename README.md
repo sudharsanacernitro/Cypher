@@ -1,6 +1,6 @@
 # Instagram Replica
 
-This project is an Instagram replica built with [Your Technology Stack]. It includes most of the core features of Instagram, allowing users to share photos, follow other users, like posts, and comment on posts.
+This project is an Instagram replica built with [Nodejs,mongodb,redis,expressjs,html,css]. It includes most of the core features of Instagram, allowing users to share photos, follow other users, like posts, and comment on posts.
 
 ## Features
 
